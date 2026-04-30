@@ -491,6 +491,43 @@ footer {
   font-size: 0.8rem;
 }
 
+/* Social sharing buttons */
+.share-buttons {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border-light);
+  margin-top: 8px;
+}
+
+.share-label {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin-right: 2px;
+}
+
+.share-btn {
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background-color 0.2s, transform 0.15s;
+  color: var(--text-primary);
+}
+
+.share-btn:hover {
+  background-color: var(--border);
+  transform: scale(1.1);
+}
+
 /* Search and Filter Components - Updated for Sidebar */
 .search-box {
   display: flex;
