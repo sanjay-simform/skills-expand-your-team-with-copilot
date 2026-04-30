@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.classList.toggle("dark-mode");
     const isDark = document.body.classList.contains("dark-mode");
     darkModeToggle.textContent = isDark ? "☀️" : "🌙";
-    darkModeToggle.title = isDark ? "Switch to light mode" : "Toggle dark mode";
+    darkModeToggle.title = isDark ? "Switch to light mode" : "Switch to dark mode";
     localStorage.setItem("darkMode", isDark ? "enabled" : "disabled");
   });
 
