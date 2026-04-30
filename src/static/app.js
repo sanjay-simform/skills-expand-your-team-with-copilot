@@ -569,6 +569,21 @@ document.addEventListener("DOMContentLoaded", () => {
         `
         }
       </div>
+      <div class="share-buttons">
+        <span class="share-label">Share:</span>
+        <button class="share-btn share-twitter" data-activity="${name}" aria-label="Share on Twitter">
+          <span>🐦</span>
+        </button>
+        <button class="share-btn share-facebook" data-activity="${name}" aria-label="Share on Facebook">
+          <span>📘</span>
+        </button>
+        <button class="share-btn share-email" data-activity="${name}" aria-label="Share via Email">
+          <span>✉️</span>
+        </button>
+        <button class="share-btn share-copy" data-activity="${name}" aria-label="Copy link">
+          <span>🔗</span>
+        </button>
+      </div>
     `;
 
     // Add click handlers for delete buttons
@@ -586,6 +601,43 @@ document.addEventListener("DOMContentLoaded", () => {
         });
       }
     }
+
+    // Add click handlers for share buttons
+    const shareUrl = `${window.location.origin}${window.location.pathname}`;
+    const shareText = `Check out "${name}" at Mergington High School! ${details.description}`;
+
+    activityCard.querySelector(".share-twitter").addEventListener("click", () => {
+      const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
+      window.open(twitterUrl, "_blank", "noopener,noreferrer");
+    });
+
+    activityCard.querySelector(".share-facebook").addEventListener("click", () => {
+      const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}&quote=${encodeURIComponent(shareText)}`;
+      window.open(facebookUrl, "_blank", "noopener,noreferrer");
+    });
+
+    activityCard.querySelector(".share-email").addEventListener("click", () => {
+      const subject = encodeURIComponent(`Join me for "${name}" at Mergington High School!`);
+      const body = encodeURIComponent(`${shareText}\n\nSchedule: ${formattedSchedule}\n\nLearn more: ${shareUrl}`);
+      window.location.href = `mailto:?subject=${subject}&body=${body}`;
+    });
+
+    activityCard.querySelector(".share-copy").addEventListener("click", (event) => {
+      const btn = event.currentTarget;
+      navigator.clipboard.writeText(`${shareText} ${shareUrl}`).then(() => {
+        const originalContent = btn.innerHTML;
+        btn.innerHTML = "<span>✅</span>";
+        setTimeout(() => {
+          btn.innerHTML = originalContent;
+        }, 2000);
+      }).catch(() => {
+        const originalContent = btn.innerHTML;
+        btn.innerHTML = "<span>❌</span>";
+        setTimeout(() => {
+          btn.innerHTML = originalContent;
+        }, 2000);
+      });
+    });
 
     activitiesList.appendChild(activityCard);
   }
